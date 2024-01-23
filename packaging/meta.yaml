@@ -1,0 +1,14 @@
+{% set version = "0.0.1" %}
+
+package:
+  name: technician-routing
+  version: {{ version }}
+
+build:
+  number: 4
+  noarch: python
+
+requirements:
+  run:
+    - python
+    - numpy >=1.11
