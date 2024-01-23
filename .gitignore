@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 secret/
+routing/
 build/
 develop-eggs/
 dist/
