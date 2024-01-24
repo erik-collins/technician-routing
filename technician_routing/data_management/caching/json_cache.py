@@ -1,5 +1,6 @@
 from json import dump as json_dump, load as json_load
-from os.path import exists, makedirs, split
+from os.path import exists, split
+from os import makedirs
 from typing import Optional
 
 from .cache import Cache
@@ -10,13 +11,16 @@ __all__ = ['JsonCache',]
 class JsonCache(Cache):
 
     def __init__(self, filepath: str):
-        self.filepath = filepath or raise ValueError('Missing filepath')
+        if not filepath:
+            raise ValueError('Missing filepath')
+
+        self.filepath = filepath
 
         containing_directory, _ = split(filepath)
         if not exists(containing_directory):
             makedirs(containing_directory)
 
-        super().__init__(self)
+        super().__init__()
 
     def save(self) -> None:
         with open(self.filepath, 'w') as fl:
@@ -24,7 +28,9 @@ class JsonCache(Cache):
 
     def load(self) -> None:
         if not exists(self.filepath):
-            return None
+            print(f'Warning, no data at {self.filepath}')
+            self.data = {}
+            return
 
         with open(self.filepath,'r') as fl:
             self.data = json_load(fl)

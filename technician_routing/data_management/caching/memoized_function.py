@@ -8,8 +8,14 @@ __all__ = ['MemoizedFunction',]
 class MemoizedFunction:
 
     def __init__(self, cache: Cache, delegate: Callable):
-        self.cache = cache or ValueError(f'Cache manager is required')
-        self.delegate = delegate or ValueError('Delegate is missing')
+        if not cache:
+            raise ValueError(f'Cache manager is required')
+        self.cache = cache
+
+        if not delegate:
+            raise ValueError('Delegate is missing')
+
+        self.delegate = delegate
 
     
     def new_reader(self, persistence_frequency = 100):
@@ -20,12 +26,12 @@ class MemoizedFunction:
         def get_item(key):
             nonlocal i
             #print(key)
-            if key in cache:
+            if key in cache.data:
                 #print('Read Cache for',key)
-                return cache[key]
+                return cache.data[key]
             item = f(key)
             #print('Hit API for', key)
-            cache[key] = item
+            cache.data[key] = item
             i = i + 1
             if i % freq == 0:
                 cache.save()

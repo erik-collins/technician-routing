@@ -6,7 +6,10 @@ __all__ = ['AddressRetriever',]
 class AddressRetriever:
     
     def __init__(self, google_api_key):
-        self.geolocator = GoogleV3(google_api_key or ValueError('Google API Key was missing'))
+        if not google_api_key:
+            raise ValueError('Google API Key was missing')
+        
+        self.geolocator = GoogleV3(google_api_key)
 
     def get_api_location(self, address_dirty):
         if not address_dirty:
