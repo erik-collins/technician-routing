@@ -4,10 +4,10 @@ from typing import Optional
 
 from .optimizer_utils import create_search_parameters
 
-__all__ = ['VehicleRouting',]
+__all__ = ['RouteSolver',]
 
 
-class VehicleRouting:
+class RouteSolver:
     def __init__(
             self, 
             distances,
@@ -35,12 +35,17 @@ class VehicleRouting:
             ends:
                 array of end indices, length of number of vehicles
                 Optional, None -> ends = starts
+
+            search_parameters:
+                Optional optimization parameters
+
+            solve_immediately:
+                Solve route immediately on construction
                 
         """
         
         self.distances = distances
         self.demands = demands
-        #self.capacities = capacities
         self.capacity = capacity
 
         if hasattr(starts, 'tolist'):
@@ -74,9 +79,6 @@ class VehicleRouting:
         
         ## Define demand callback function
         # demand_callback_index = self.model.RegisterUnaryTransitCallback(self.demand_callback)
-
-        
-
         
         # Any constraint associated with vehicles can take same arguments
         # self.model.AddDimensionWithVehicleCapacity(
@@ -103,7 +105,6 @@ class VehicleRouting:
             self.solution = None
 
     
-    
     def combined_callback(self, from_index, to_index):
         from_node = self.index_manager.IndexToNode(from_index)
         to_node = self.index_manager.IndexToNode(to_index)
@@ -121,13 +122,15 @@ class VehicleRouting:
         distance = int(self.distances[from_node, to_node])
         return distance
 
+
     # Same valid for any callback related to nodes
     # Note:  This must return an integer
     def demand_callback(self, from_index):
         from_node = self.index_manager.IndexToNode(from_index)
         demand = int(self.demands[from_node])
         return demand
-            
+    
+
     def solve(self, re_solve: bool = False, search_parameters: Optional[RoutingSearchParameters] = None):
         if not re_solve and self.solved:
             return self.solution

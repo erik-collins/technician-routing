@@ -1,5 +1,6 @@
 __all__ = ['RoutingConfig',]
 
+
 class RoutingConfig:
     def __init__(
             self,
