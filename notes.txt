@@ -1,0 +1,37 @@
+
+cluster.py
+
+ - get initial clusters
+ - get optimal elbow
+ 
+  - build dataframe by row
+    - find score metric, get optimal k values, add one
+    - separately, fit kmeans for latitude and longitude
+    - add cluster label to address
+   
+utils.py
+  - optimal elbow again
+  - calc distances (seems like duration) in minutes
+
+Tech Routing
+   - combine addresses in both tech and client, label where each is from
+   - get coordinates (unused?)
+   - add client demands number to address dataframe
+   - add demands vector to class, used later
+   - add capacity as 60 * working hours argument (minutes)
+      later added to routing to add dimension
+   - self.n_vehicles = n_vehicles argument
+   - self.N = length of self.coordinates
+   - get start_end which is likely weighted-random choice of tech index
+   
+
+   - calculate distances w/given speed
+     - take unique addresses (tech + client)
+     - create NxN matrix of zeros
+     - calculate haversine distance between each pair of coordinates in minutes
+
+     what is index-to-node?
+
+
+PyWrapCp
+  - manager = RoutingIndexManager(N-Nodes, N-Vehicles, start_date, start_end)
