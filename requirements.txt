@@ -34,6 +34,7 @@ fastjsonschema==2.16.2
 filelock==3.13.1
 geographiclib==2.0
 geopy==2.4.1
+haversine==2.8.1
 idna==3.4
 ipykernel==6.28.0
 ipython==8.20.0
