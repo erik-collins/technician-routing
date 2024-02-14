@@ -15,7 +15,7 @@ class AddressRetriever:
         if not address_dirty:
             return None
         
-        result = geolocator.geocode(address_dirty)
+        result = self.geolocator.geocode(address_dirty)
         if not result:
             return None
         
