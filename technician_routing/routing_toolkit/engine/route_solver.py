@@ -146,7 +146,7 @@ class RouteSolver:
 
 
     def get_routes(self):
-        solution = self.solve(re_solve =False)
+        solution = self.solve(re_solve = False)
         routes = []
 
         for tour_number, vehicle_id in enumerate(range(len(self.starts))):

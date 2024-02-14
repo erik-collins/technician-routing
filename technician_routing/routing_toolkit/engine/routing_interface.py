@@ -1,8 +1,9 @@
 from haversine import haversine, Unit
 from numpy.random import choice
+from ortools.constraint_solver.routing_parameters_pb2 import RoutingSearchParameters
 from pandas import read_csv, concat
 from time import time
-from typing import List, Union
+from typing import List, Union, Optional
 
 from ..config import RoutingConfig
 
@@ -36,6 +37,8 @@ class RoutingInterface:
                 
         self.last_coordinates = None
         self.last_durations = None
+
+        self.search_parameters = None
 
 
     
@@ -97,6 +100,10 @@ class RoutingInterface:
         return self
 
 
+    def set_search_parameters(self, search_parameters: Optional[RoutingSearchParameters] = None):
+        self.search_parameters = search_parameters
+        return self
+
     def calculate_travel_duration(self, coordinates_a, coordinates_b):
         miles = haversine(coordinates_a, coordinates_b, unit=Unit.MILES)
         miles_per_minute = self.driver_speed / 60 
@@ -148,7 +155,8 @@ class RoutingInterface:
             self.last_durations,
             time_on_location,
             self.route_capacity,
-            route_drivers
+            route_drivers,
+            search_parameters = self.search_parameters
         )
 
         return self.solver.get_routes()
