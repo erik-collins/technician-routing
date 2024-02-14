@@ -68,8 +68,29 @@ Also explained here
 
 These are meant to be instructions for the developer, to build a new tar.bz2
 
-CD to technician-routing\packaging
-conda-build . --output-dir ..\build
+## Update the meta.yaml file
 
-File is ouput to {conda-install}\conda-bld\
-Should in a subfolder, likely win-64
+You'll likely want to at least increment the build number, and maybe the overall version number.
+The meta.yaml file is located in the packaging directory of this project
+
+1. Update the version in line 1
+2. Update the number under build in line ~8
+
+
+## Build the package
+
+Navigate to the meta.yaml containing folder
+
+Starting in the current project directory in your anaconda prompt
+
+    cd packaging
+
+Build the curent location, outputting to a build folder one level out.  Depending on your conda build version, one of
+
+    conda-build . --output-dir ..\build
+    conda-build . --output-folder ..\build
+
+File will be output to the build folder, likely in a subdirectory noarch
+
+- ..\build\noarch\technician-routing-1.0.0-1.tar.bz
+

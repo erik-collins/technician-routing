@@ -1,15 +1,14 @@
-{% set version = "0.0.1" %}
+{% set version = "1.0.0" %}
 
 package:
   name: technician-routing
   version: {{ version }}
 
 build:
-  number: 6
+  number: 1
   noarch: python
 
 requirements:
   run:
     - python
     - numpy >=1.11
-    # - geopy >=2.4.1
