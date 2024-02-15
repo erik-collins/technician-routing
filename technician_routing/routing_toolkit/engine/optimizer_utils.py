@@ -8,7 +8,7 @@ __all__ = ['create_search_parameters',]
 
 def create_search_parameters(
             use_greedy_local_search: bool = True,
-            search_time_seconds: int = 5) -> RoutingSearchParameters:
+            search_time_seconds: int = 120) -> RoutingSearchParameters:
         
         ## Setting heuristic strategies
         search_parameters = pywrapcp.DefaultRoutingSearchParameters()

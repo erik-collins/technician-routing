@@ -137,7 +137,7 @@ class RouteSolver:
 
         self.solution = self.model.SolveWithParameters(search_parameters or self.search_parameters)
         if self.solution is None:
-            raise Exception('Failed to solve problem, likely too few routes/vehicles')
+            raise Exception('Failed to solve problem, likely too few routes/vehicles or too low of a time limit')
     
         self.solved_objective_value = self.solution.ObjectiveValue()
         print('Solved objective value', self.solved_objective_value)
